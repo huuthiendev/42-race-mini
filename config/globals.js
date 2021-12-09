@@ -49,4 +49,6 @@ module.exports.globals = {
 
   sails: true,
 
+  // Constants
+  STRAVA_API_ENDPOINT: 'https://www.strava.com/api/v3/'
 };
