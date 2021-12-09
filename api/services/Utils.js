@@ -1,5 +1,6 @@
 module.exports = {
-  checkRequestParams
+  checkRequestParams,
+  buildCriteria
 };
 
 /**
@@ -7,7 +8,6 @@ module.exports = {
  * @param {Object} requestParams Parameters from request.
  * @param {string[]} requireParams List of required parameter
  */
-
 function checkRequestParams(requestParams, requireParams) {
   var missingParams = [];
   requireParams.forEach(r => {
@@ -21,4 +21,19 @@ function checkRequestParams(requestParams, requireParams) {
     };
   }
   else return;
+}
+
+/**
+ *
+ * @param {Object} requestParams Parameters from request.
+ * @param {string[]} fields List of query fields
+ */
+function buildCriteria(reqParams, fields) {
+  var criteria = {};
+  fields.forEach(field => {
+    if (reqParams[field]) {
+      criteria[field] = reqParams[field];
+    }
+  });
+  return criteria;
 }

@@ -50,7 +50,7 @@ async function stravaCallback(req, res) {
     // Fetch all activities
     var activities = await Strava.listAthleteActivities(info.access_token);
     // Sync activities
-    await syncActivities(activities, account._id);
+    await syncActivities(activities, account.id);
 
     return res.redirect('/');
   }

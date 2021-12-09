@@ -25,7 +25,8 @@ async function getAccountActivities(req, res) {
 
 async function getListActivities(req, res) {
   try {
-    var activities = await Activities.find().sort('createdAt desc');
+    var criteria = Utils.buildCriteria(req.query, ['type', 'accountId'])
+    var activities = await Activities.find(criteria).sort('createdAt desc');
     return res.ok(activities);
   }
   catch (err) {
