@@ -27,6 +27,9 @@ async function connect(req, res) {
 
 async function stravaCallback(req, res) {
   try {
+    // Back to homepage when user ignore authorization
+    if (req.query.error == 'access_denied') return res.redirect('/');
+
     // Check require params
     Utils.checkRequestParams(req.query, ['code']);
 
