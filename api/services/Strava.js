@@ -8,7 +8,7 @@ module.exports = {
 };
 
 function getAuthorizeURL() {
-  return `${sails.config.globals.STRAVA_API_ENDPOINT}oauth/authorize?client_id=${process.env.STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${process.env.CALLBACK_URL}&approval_prompt=auto`
+  return `${sails.config.globals.STRAVA_API_ENDPOINT}oauth/authorize?client_id=${process.env.STRAVA_CLIENT_ID}&response_type=code&redirect_uri=${process.env.CALLBACK_URL}&approval_prompt=auto&scope=activity:read_all,profile:read_all`
 }
 
 /**
