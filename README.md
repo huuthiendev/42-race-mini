@@ -12,6 +12,10 @@ DB_PORT=<<Database Port>>
 DB_USER=<<Database Username>>
 DB_PASS=<<Database Password>>
 DB_NAME=<<Database Name>>
+
+STRAVA_CLIENT_ID=<<STRAVA CLIENT ID>>
+STRAVA_CLIENT_SECRET=<<STRAVA CLIENT SECRET>>
+CALLBACK_URL=<<REDIRECT PATH>>
 ```
 
 Rename .env.example to .env
