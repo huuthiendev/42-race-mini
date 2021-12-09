@@ -9,7 +9,6 @@ module.exports = {
   connect,
   disconnect,
   stravaCallback,
-  userInfo
 };
 
 async function connect(req, res) {
@@ -36,6 +35,7 @@ async function stravaCallback(req, res) {
     req.session.refreshToken = info.refresh_token;
     req.session.accessToken = info.access_token;
     req.session.expiresAt = info.expires_at;
+    req.session.athleteId = info.athlete.id;
 
     var account = await Accounts.findOne({ athleteId: info.athlete.id });
     if (!account) {
@@ -89,18 +89,6 @@ async function disconnect(req, res) {
   }
   catch (err) {
     console.log('[OauthController] disconnect - error: ', err);
-    return res.badRequest(err);
-  }
-}
-
-async function userInfo(req, res) {
-  try {
-    var user = req.session.athleteId;
-    console.log('User info: ', user);
-    return res.ok(user);
-  }
-  catch (err) {
-    console.log('[OauthController] userInfo - error: ', err);
     return res.badRequest(err);
   }
 }
