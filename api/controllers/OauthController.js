@@ -30,23 +30,24 @@ async function stravaCallback(req, res) {
   try {
     var code = req.query.code;
     var info = await Strava.tokenExchange(code);
-    console.log('[OauthController] stravaCallback - authorize info: ', info);
+    // console.log('[OauthController] stravaCallback - authorize info: ', info);
 
     // Add user credentials to session
     req.session.refreshToken = info.refresh_token;
     req.session.accessToken = info.access_token;
     req.session.expiresAt = info.expires_at;
 
-    var checkAccount = await Accounts.find({ athleteId: info.athlete.id });
-    if (!checkAccount.length) {
+    var account = await Accounts.findOne({ athleteId: info.athlete.id });
+    if (!account) {
       var { id, firstname, lastname, sex, profile } = info.athlete;
-      await Accounts.create({ athleteId: id, firstname, lastname, sex, profile });
-      console.log('[OauthController] stravaCallback - register a new account');
+      account = await Accounts.create({ athleteId: id, firstname, lastname, sex, profile }).fetch();
+      console.log('[OauthController] stravaCallback - register a new account: ', account);
     }
 
     // Fetch all activities
     var activities = await Strava.listAthleteActivities(info.access_token);
-    console.log('activities: ', activities);
+    // Sync activities
+    await syncActivities(activities, account._id);
 
     return res.redirect('/');
   }
@@ -54,6 +55,30 @@ async function stravaCallback(req, res) {
     console.log('[OauthController] stravaCallback - error: ', err);
     return res.badRequest(err);
   }
+}
+
+async function syncActivities(fetchActivites, accountId) {
+  var existingActivities = await Activities.find({ accountId: accountId });
+  var newActivities = fetchActivites.reduce((total, activity) => {
+    var checkActivity = existingActivities.find(act => act.stravaActivityId == activity.id);
+    if (!checkActivity) {
+      var { athlete, name, distance, id, type, average_speed, start_date, moving_time, total_elevation_gain } = activity;
+      total.push({
+        athleteId: athlete.id,
+        name,
+        distance,
+        stravaActivityId: id,
+        type,
+        averageSpeed: average_speed,
+        startDate: start_date,
+        accountId,
+        movingTime: moving_time,
+        totalElevationGain: total_elevation_gain
+      });
+    }
+    return total;
+  }, []);
+  await Activities.createEach(newActivities);
 }
 
 async function disconnect(req, res) {
