@@ -105,12 +105,6 @@ async function deauthorize(accessToken) {
  */
 async function listAthleteActivities(accessToken) {
   try {
-    // var data = {
-    //   client_id: process.env.STRAVA_CLIENT_ID,
-    //   client_secret: process.env.STRAVA_CLIENT_SECRET,
-    //   refresh_token: refreshToken,
-    //   grant_type: 'refresh_token'
-    // };
     var response = await axios({
       method: 'get',
       url: sails.config.globals.STRAVA_API_ENDPOINT + 'athlete/activities',

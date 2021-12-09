@@ -55,7 +55,11 @@ async function deleteActivity(req, res) {
     // Check require params
     Utils.checkRequestParams(req.query, ['id']);
 
-    var activity = await Activities.destroy({ id });
+    var activity = await Activities.findOne({ id: req.query.id });
+    if (!activity) {
+      throw { message: 'Invalid activity id' };
+    }
+    await Activities.destroy({ id: req.query.id });
     return res.ok(activity);
   }
   catch (err) {

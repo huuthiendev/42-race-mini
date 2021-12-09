@@ -19,9 +19,9 @@ module.exports.policies = {
 
   // '*': true,
   'ActivityController': {
-    '*': 'CheckAccessToken'
+    'getAccountActivities': 'CheckAccessToken'
   },
   'AccountController': {
-    '*': 'CheckAccessToken'
+    'accountInfo': 'CheckAccessToken'
   },
 };
