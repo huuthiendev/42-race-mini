@@ -8,7 +8,7 @@
 module.exports = {
 
   attributes: {
-    athleteId: { type: 'string', required: false },
+    athleteId: { type: 'number', required: false },
     firstname: { type: 'string', required: false },
     lastname: { type: 'string', required: false },
     sex: { type: 'string', required: false },
