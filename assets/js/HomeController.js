@@ -19,7 +19,7 @@ angular.module('42RaceMini', []).controller('HomeController', function ($scope, 
   $scope.getListActivities = function () {
     $http({
       method: 'GET',
-      url: '/activity/list'
+      url: '/activity/get-by-account'
     }).then(function (res) {
       console.log('getListActivities: ', res);
       $scope.activities = res.data;

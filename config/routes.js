@@ -28,6 +28,7 @@ module.exports.routes = {
 
 
   // ActivityController
+  'GET /activity/get-by-account': 'ActivityController.getAccountActivities',
   'GET /activity/list': 'ActivityController.getListActivities',
   'GET /activity/get-activity': 'ActivityController.getActivityById',
   'DELETE /activity/delete': 'ActivityController.deleteActivity',
@@ -35,7 +36,7 @@ module.exports.routes = {
   // AccountController
   'GET /account/info': 'AccountController.accountInfo',
   'GET /account/list': 'AccountController.getListAccounts',
-  'GET /account/get-account': 'AccountController.getAccountInfoById',
+  'GET /account/get-by-id': 'AccountController.getAccountInfoById',
 
   /***************************************************************************
   *                                                                          *

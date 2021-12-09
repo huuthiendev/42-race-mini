@@ -6,10 +6,22 @@
  */
 
 module.exports = {
+  getAccountActivities,
   getListActivities,
   getActivityById,
   deleteActivity
 };
+
+async function getAccountActivities(req, res) {
+  try {
+    var activities = await Activities.find({ athleteId: req.session.athleteId }).sort('createdAt desc');
+    return res.ok(activities);
+  }
+  catch (err) {
+    console.log('[ActivityController] getAccountActivities - error: ', err);
+    return res.badRequest(err);
+  }
+}
 
 async function getListActivities(req, res) {
   try {
