@@ -36,9 +36,12 @@ async function getListActivities(req, res) {
 
 async function getActivityById(req, res) {
   try {
-    var id = req.param('id');
+    // Check require params
+    Utils.checkRequestParams(req.query, ['id']);
+    var id = req.query.id;
+
     var activity = await Activities.findOne({ id });
-    return res.ok(activity);
+    return res.ok(activity ? activity : null);
   }
   catch (err) {
     console.log('[ActivityController] getActivityById - error: ', err);
@@ -48,7 +51,9 @@ async function getActivityById(req, res) {
 
 async function deleteActivity(req, res) {
   try {
-    var id = req.param('id');
+    // Check require params
+    Utils.checkRequestParams(req.query, ['id']);
+
     var activity = await Activities.destroy({ id });
     return res.ok(activity);
   }

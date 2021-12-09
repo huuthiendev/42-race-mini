@@ -1,6 +1,6 @@
 module.exports = async function (req, res, next) {
   if (!req.session.accessToken) {
-    return res.status(401).send('Unauthorized');
+    return res.status(401).send({ message: 'Unauthorized' });
   }
   var nowTime = new Date().getTime();
   if ((req.session.expiresAt * 1000) <= nowTime) {

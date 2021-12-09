@@ -27,6 +27,9 @@ async function connect(req, res) {
 
 async function stravaCallback(req, res) {
   try {
+    // Check require params
+    Utils.checkRequestParams(req.query, ['code']);
+
     var code = req.query.code;
     var info = await Strava.tokenExchange(code);
     console.log('[OauthController] stravaCallback - authorize info: ', info);

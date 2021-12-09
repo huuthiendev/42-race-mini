@@ -24,7 +24,7 @@ async function accountInfo(req, res) {
 
 async function getListAccounts(req, res) {
   try {
-    var accounts = await Accounts.find({})
+    var accounts = await Accounts.find();
     return res.ok(accounts);
   }
   catch (err) {
@@ -35,9 +35,12 @@ async function getListAccounts(req, res) {
 
 async function getAccountInfoById(req, res) {
   try {
-    var accountId = req.param('id');
+    // Check require params
+    Utils.checkRequestParams(req.query, ['id']);
+    var accountId = req.query.id;
+
     var account = await Accounts.findOne({ id: accountId });
-    return res.ok(account);
+    return res.ok(account ? account : null);
   }
   catch (err) {
     console.log('[AccountController] getAccountInfoById - error: ', err);
