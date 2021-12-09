@@ -30,16 +30,23 @@ async function stravaCallback(req, res) {
   try {
     var code = req.query.code;
     var info = await Strava.tokenExchange(code);
-    console.log('Strava Info: ', info);
+    console.log('[OauthController] stravaCallback - authorize info: ', info);
 
     // Add user credentials to session
     req.session.refreshToken = info.refresh_token;
     req.session.accessToken = info.access_token;
     req.session.expiresAt = info.expires_at;
 
+    var checkAccount = await Accounts.find({ athleteId: info.athlete.id });
+    if (!checkAccount.length) {
+      var { id, firstname, lastname, sex, profile } = info.athlete;
+      await Accounts.create({ athleteId: id, firstname, lastname, sex, profile });
+      console.log('[OauthController] stravaCallback - register a new account');
+    }
+
     // Fetch all activities
     var activities = await Strava.listAthleteActivities(info.access_token);
-    console.log('activities: ', activities)
+    console.log('activities: ', activities);
 
     return res.redirect('/');
   }
