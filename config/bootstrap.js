@@ -8,8 +8,8 @@
  * For more information on seeding your app with fake data, check out:
  * https://sailsjs.com/config/bootstrap
  */
-
-module.exports.bootstrap = async function() {
+require('dotenv').config();
+module.exports.bootstrap = async function () {
 
   // By convention, this is a good place to set up fake data during development.
   //
