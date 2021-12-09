@@ -1,3 +1,13 @@
-<div ng-app="42RaceMini" ng-controller="HomeController">
-  <a href="/oauth/connect"><button>Connect</button></a>
+<div ng-app="42RaceMini" ng-controller="HomeController" ng-cloak>
+  <div class="home-container" ng-if="!accountInfo">
+    <img ng-src="images/strava-icon.png" class="strava-icon" />
+    <div class="strava-name">Strava</div>
+    <a href="/oauth/connect" class="btn-login-strava btn-connect">Connect</a>
+  </div>
+  <div class="home-container" ng-if="accountInfo">
+    <img ng-src="{{accountInfo.profile}}" class="strava-icon" />
+    <div class="strava-name">{{accountInfo.firstname}} {{accountInfo.lastname}}</div>
+    <a href="{{getAthleteURL()}}}" class="strava-link">{{getAthleteURL()}}</a>
+    <a href="/oauth/disconnect" class="btn-login-strava btn-disconnect">Disconnect</a>
+  </div>
 </div>
