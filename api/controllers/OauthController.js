@@ -31,10 +31,15 @@ async function stravaCallback(req, res) {
     var code = req.query.code;
     var info = await Strava.tokenExchange(code);
     console.log('Strava Info: ', info);
+
     // Add user credentials to session
     req.session.refreshToken = info.refresh_token;
     req.session.accessToken = info.access_token;
     req.session.expiresAt = info.expires_at;
+
+    // Fetch all activities
+    var activities = await Strava.listAthleteActivities(info.access_token);
+    console.log('activities: ', activities)
 
     return res.redirect('/');
   }
