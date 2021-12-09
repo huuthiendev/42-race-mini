@@ -9,5 +9,21 @@
     <div class="strava-name">{{accountInfo.firstname}} {{accountInfo.lastname}}</div>
     <a href="{{getAthleteURL()}}}" class="strava-link">{{getAthleteURL()}}</a>
     <a href="/oauth/disconnect" class="btn-login-strava btn-disconnect">Disconnect</a>
+    <div class="activity-container" ng-if="activities.length">
+      <div class="activity-title">Activities:</div>
+      <div class="activity-list">
+        <div ng-repeat="activity in activities" class="activity-card">
+          <div>
+            <div class="activity-item">{{activity.name}}</div>
+            <div class="activity-item">{{activity.createdAt | date: 'MM-dd-yyyy hh:mm'}}</div>
+          </div>
+          <div>
+            <div class="activity-item">Type: <b>{{activity.type}}</b></div>
+            <div class="activity-item">Distance: <b>{{activity.distance}}</b></div>
+            <div class="activity-item">Average Speed: <b>{{activity.averageSpeed}}</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

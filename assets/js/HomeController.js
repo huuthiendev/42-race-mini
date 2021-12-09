@@ -1,5 +1,6 @@
 angular.module('42RaceMini', []).controller('HomeController', function ($scope, $http) {
   $scope.accountInfo = null;
+  $scope.activities = [];
 
   angular.element(document).ready(function () {
     $scope.getAccountInfo();
@@ -11,6 +12,17 @@ angular.module('42RaceMini', []).controller('HomeController', function ($scope, 
       url: '/account/info'
     }).then(function (res) {
       $scope.accountInfo = res.data;
+      $scope.getListActivities();
+    });
+  }
+
+  $scope.getListActivities = function () {
+    $http({
+      method: 'GET',
+      url: '/activity/list'
+    }).then(function (res) {
+      console.log('getListActivities: ', res);
+      $scope.activities = res.data;
     });
   }
 

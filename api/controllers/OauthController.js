@@ -83,6 +83,7 @@ async function syncActivities(fetchActivites, accountId) {
 
 async function disconnect(req, res) {
   try {
+    // Revoke access token
     await Strava.deauthorize(req.session.accessToken);
     req.session.destroy();
     res.redirect('/');
