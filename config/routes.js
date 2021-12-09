@@ -21,6 +21,22 @@ module.exports.routes = {
 
   '/': { view: 'pages/homepage' },
 
+  // OauthController
+  'GET /oauth/connect': 'OauthController.connect',
+  'GET /oauth/callback': 'OauthController.stravaCallback',
+  'GET /oauth/disconnect': 'OauthController.disconnect',
+
+
+  // ActivityController
+  'GET /activity/get-by-account': 'ActivityController.getAccountActivities',
+  'GET /activity/list': 'ActivityController.getListActivities',
+  'GET /activity/get-activity': 'ActivityController.getActivityById',
+  'DELETE /activity/delete': 'ActivityController.deleteActivity',
+
+  // AccountController
+  'GET /account/info': 'AccountController.accountInfo',
+  'GET /account/list': 'AccountController.getListAccounts',
+  'GET /account/get-by-id': 'AccountController.getAccountInfoById',
 
   /***************************************************************************
   *                                                                          *

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>New Sails App</title>
 
-    <!-- Viewport mobile tag for sensible mobile support -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<head>
+  <title>42 Race Mini</title>
 
-    <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
-    <%/* <meta name="robots" content="noindex"> */%>
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <% /* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
+    <% /* <meta name="robots" content="noindex"> */%>
 
 
-    <!--
+      <!--
         Stylesheets and Preprocessors
         ==============================
 
@@ -31,12 +32,17 @@
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
 
-    <!--STYLES-->
-    <!--STYLES END-->
-  </head>
+      <!--STYLES-->
+      <link rel="stylesheet" href="/styles/home.css">
+      <link rel="stylesheet" href="/styles/importer.css">
+      <!--STYLES END-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"
+        integrity="sha512-7oYXeK0OxTFxndh0erL8FsjGvrl2VMDor6fVqzlLGfwOQQqTbYsGPv4ZZ15QHfSk80doyaM0ZJdvkyDcVO7KFA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
 
-  <body>
-    <%- body %>
+<body>
+  <%- body %>
 
 
 
@@ -105,6 +111,9 @@
     -->
 
     <!--SCRIPTS-->
+    <script src="/dependencies/sails.io.js"></script>
+    <script src="/js/HomeController.js"></script>
     <!--SCRIPTS END-->
-  </body>
+</body>
+
 </html>
