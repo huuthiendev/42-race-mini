@@ -30,7 +30,7 @@ async function stravaCallback(req, res) {
   try {
     var code = req.query.code;
     var info = await Strava.tokenExchange(code);
-    // console.log('[OauthController] stravaCallback - authorize info: ', info);
+    console.log('[OauthController] stravaCallback - authorize info: ', info);
 
     // Add user credentials to session
     req.session.refreshToken = info.refresh_token;
@@ -83,6 +83,7 @@ async function syncActivities(fetchActivites, accountId) {
 
 async function disconnect(req, res) {
   try {
+    await Strava.deauthorize(req.session.accessToken);
     req.session.destroy();
     res.redirect('/');
   }
